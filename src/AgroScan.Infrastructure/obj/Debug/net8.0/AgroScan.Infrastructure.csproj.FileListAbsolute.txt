@@ -1,0 +1,17 @@
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/bin/Debug/net8.0/AgroScan.Infrastructure.deps.json
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/bin/Debug/net8.0/AgroScan.Infrastructure.runtimeconfig.json
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/bin/Debug/net8.0/AgroScan.Infrastructure.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/bin/Debug/net8.0/AgroScan.Infrastructure.pdb
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/bin/Debug/net8.0/AgroScan.Core.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/bin/Debug/net8.0/AgroScan.Core.pdb
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.csproj.AssemblyReference.cache
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.AssemblyInfoInputs.cache
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.AssemblyInfo.cs
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.136834B5.Up2Date
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/refint/AgroScan.Infrastructure.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.pdb
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/AgroScan.Infrastructure.genruntimeconfig.cache
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net8.0/ref/AgroScan.Infrastructure.dll

@@ -1,0 +1,708 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AgroScan.API</name>
+    </assembly>
+    <members>
+        <member name="T:AgroScan.API.Controllers.AuthController">
+            <summary>
+            Controller for authentication operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Controllers.AuthController.#ctor(AgroScan.API.Services.IAuthService,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.AuthController})">
+            <summary>
+            Initializes a new instance of the AuthController
+            </summary>
+            <param name="authService">Authentication service</param>
+            <param name="logger">Logger</param>
+        </member>
+        <member name="M:AgroScan.API.Controllers.AuthController.Register(AgroScan.Core.DTOs.RegisterDto)">
+            <summary>
+            Registers a new user
+            </summary>
+            <param name="registerDto">User registration data</param>
+            <returns>Authentication response with JWT token</returns>
+            <response code="200">User registered successfully</response>
+            <response code="400">Invalid registration data</response>
+            <response code="409">Email already exists</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.AuthController.Login(AgroScan.Core.DTOs.LoginDto)">
+            <summary>
+            Logs in a user
+            </summary>
+            <param name="loginDto">User login data</param>
+            <returns>Authentication response with JWT token</returns>
+            <response code="200">Login successful</response>
+            <response code="400">Invalid login data</response>
+            <response code="401">Invalid credentials</response>
+        </member>
+        <member name="T:AgroScan.API.Controllers.InspectionAnalysesController">
+            <summary>
+            Controller for inspection analysis management operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.#ctor(AgroScan.API.Services.IInspectionAnalysisService,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.InspectionAnalysesController})">
+            <summary>
+            Initializes a new instance of the InspectionAnalysesController
+            </summary>
+            <param name="analysisService">Analysis service</param>
+            <param name="logger">Logger</param>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.GetAnalysesByInspectionId(System.Int32)">
+            <summary>
+            Gets all analyses for a specific inspection
+            </summary>
+            <param name="inspectionId">Inspection ID</param>
+            <returns>Collection of analyses</returns>
+            <response code="200">Analyses retrieved successfully</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.GetLatestAnalysisByInspectionId(System.Int32)">
+            <summary>
+            Gets the latest analysis for a specific inspection
+            </summary>
+            <param name="inspectionId">Inspection ID</param>
+            <returns>Latest analysis if found</returns>
+            <response code="200">Analysis retrieved successfully</response>
+            <response code="404">No analysis found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.GetAnalysis(System.Int32)">
+            <summary>
+            Gets an analysis by ID
+            </summary>
+            <param name="id">Analysis ID</param>
+            <returns>Analysis if found</returns>
+            <response code="200">Analysis retrieved successfully</response>
+            <response code="404">Analysis not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.CreateAnalysis(AgroScan.Core.DTOs.CreateInspectionAnalysisDto)">
+            <summary>
+            Creates a new inspection analysis
+            </summary>
+            <param name="createAnalysisDto">Analysis creation data</param>
+            <returns>Created analysis</returns>
+            <response code="201">Analysis created successfully</response>
+            <response code="400">Invalid analysis data</response>
+            <response code="401">Unauthorized - can only add analyses to own inspections</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.UpdateAnalysis(System.Int32,AgroScan.Core.DTOs.CreateInspectionAnalysisDto)">
+            <summary>
+            Updates an existing inspection analysis
+            </summary>
+            <param name="id">Analysis ID</param>
+            <param name="updateAnalysisDto">Analysis update data</param>
+            <returns>Updated analysis</returns>
+            <response code="200">Analysis updated successfully</response>
+            <response code="400">Invalid analysis data</response>
+            <response code="401">Unauthorized - can only update analyses for own inspections</response>
+            <response code="404">Analysis not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.DeleteAnalysis(System.Int32)">
+            <summary>
+            Deletes an inspection analysis
+            </summary>
+            <param name="id">Analysis ID</param>
+            <returns>No content if deleted successfully</returns>
+            <response code="204">Analysis deleted successfully</response>
+            <response code="401">Unauthorized - can only delete analyses for own inspections</response>
+            <response code="404">Analysis not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.GetCurrentUserId">
+            <summary>
+            Gets the current user ID from the JWT token
+            </summary>
+            <returns>User ID</returns>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionAnalysesController.IsCurrentUserAdmin">
+            <summary>
+            Checks if the current user is an admin
+            </summary>
+            <returns>True if admin, false otherwise</returns>
+        </member>
+        <member name="T:AgroScan.API.Controllers.InspectionImagesController">
+            <summary>
+            Controller for inspection image management operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.#ctor(AgroScan.API.Services.IInspectionImageService,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.InspectionImagesController})">
+            <summary>
+            Initializes a new instance of the InspectionImagesController
+            </summary>
+            <param name="imageService">Image service</param>
+            <param name="logger">Logger</param>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.GetImagesByInspectionId(System.Int32)">
+            <summary>
+            Gets all images for a specific inspection
+            </summary>
+            <param name="inspectionId">Inspection ID</param>
+            <returns>Collection of images</returns>
+            <response code="200">Images retrieved successfully</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.GetImage(System.Int32)">
+            <summary>
+            Gets an image by ID
+            </summary>
+            <param name="id">Image ID</param>
+            <returns>Image if found</returns>
+            <response code="200">Image retrieved successfully</response>
+            <response code="404">Image not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.CreateImage(AgroScan.Core.DTOs.CreateInspectionImageDto)">
+            <summary>
+            Creates a new inspection image
+            </summary>
+            <param name="createImageDto">Image creation data</param>
+            <returns>Created image</returns>
+            <response code="201">Image created successfully</response>
+            <response code="400">Invalid image data</response>
+            <response code="401">Unauthorized - can only add images to own inspections</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.DeleteImage(System.Int32)">
+            <summary>
+            Deletes an inspection image
+            </summary>
+            <param name="id">Image ID</param>
+            <returns>No content if deleted successfully</returns>
+            <response code="204">Image deleted successfully</response>
+            <response code="401">Unauthorized - can only delete images from own inspections</response>
+            <response code="404">Image not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.GetCurrentUserId">
+            <summary>
+            Gets the current user ID from the JWT token
+            </summary>
+            <returns>User ID</returns>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.IsCurrentUserAdmin">
+            <summary>
+            Checks if the current user is an admin
+            </summary>
+            <returns>True if admin, false otherwise</returns>
+        </member>
+        <member name="T:AgroScan.API.Controllers.InspectionsController">
+            <summary>
+            Controller for inspection management operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.#ctor(AgroScan.API.Services.IInspectionService,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.InspectionsController})">
+            <summary>
+            Initializes a new instance of the InspectionsController
+            </summary>
+            <param name="inspectionService">Inspection service</param>
+            <param name="logger">Logger</param>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.GetInspections">
+            <summary>
+            Gets all inspections for the current user or all inspections if admin
+            </summary>
+            <returns>Collection of inspections</returns>
+            <response code="200">Inspections retrieved successfully</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.GetInspection(System.Int32)">
+            <summary>
+            Gets an inspection by ID
+            </summary>
+            <param name="id">Inspection ID</param>
+            <returns>Inspection if found</returns>
+            <response code="200">Inspection retrieved successfully</response>
+            <response code="404">Inspection not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.CreateInspection(AgroScan.Core.DTOs.CreateInspectionDto)">
+            <summary>
+            Creates a new inspection
+            </summary>
+            <param name="createInspectionDto">Inspection creation data</param>
+            <returns>Created inspection</returns>
+            <response code="201">Inspection created successfully</response>
+            <response code="400">Invalid inspection data</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.UpdateInspection(System.Int32,AgroScan.Core.DTOs.UpdateInspectionDto)">
+            <summary>
+            Updates an existing inspection
+            </summary>
+            <param name="id">Inspection ID</param>
+            <param name="updateInspectionDto">Inspection update data</param>
+            <returns>Updated inspection</returns>
+            <response code="200">Inspection updated successfully</response>
+            <response code="400">Invalid inspection data</response>
+            <response code="401">Unauthorized - can only update own inspections</response>
+            <response code="404">Inspection not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.DeleteInspection(System.Int32)">
+            <summary>
+            Deletes an inspection
+            </summary>
+            <param name="id">Inspection ID</param>
+            <returns>No content if deleted successfully</returns>
+            <response code="204">Inspection deleted successfully</response>
+            <response code="401">Unauthorized - can only delete own inspections</response>
+            <response code="404">Inspection not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.GetCurrentUserId">
+            <summary>
+            Gets the current user ID from the JWT token
+            </summary>
+            <returns>User ID</returns>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.IsCurrentUserAdmin">
+            <summary>
+            Checks if the current user is an admin
+            </summary>
+            <returns>True if admin, false otherwise</returns>
+        </member>
+        <member name="T:AgroScan.API.Controllers.UsersController">
+            <summary>
+            Controller for user management operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Controllers.UsersController.#ctor(AgroScan.API.Services.IUserService,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.UsersController})">
+            <summary>
+            Initializes a new instance of the UsersController
+            </summary>
+            <param name="userService">User service</param>
+            <param name="logger">Logger</param>
+        </member>
+        <member name="M:AgroScan.API.Controllers.UsersController.GetAllUsers">
+            <summary>
+            Gets all users (Admin only)
+            </summary>
+            <returns>Collection of users</returns>
+            <response code="200">Users retrieved successfully</response>
+            <response code="403">Access denied - Admin role required</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.UsersController.GetUser(System.Int32)">
+            <summary>
+            Gets a user by ID
+            </summary>
+            <param name="id">User ID</param>
+            <returns>User if found</returns>
+            <response code="200">User retrieved successfully</response>
+            <response code="404">User not found</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.UsersController.CreateUser(AgroScan.Core.DTOs.CreateUserDto)">
+            <summary>
+            Creates a new user (Admin only)
+            </summary>
+            <param name="createUserDto">User creation data</param>
+            <returns>Created user</returns>
+            <response code="201">User created successfully</response>
+            <response code="400">Invalid user data</response>
+            <response code="403">Access denied - Admin role required</response>
+            <response code="409">Email already exists</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.UsersController.UpdateUser(System.Int32,AgroScan.Core.DTOs.UpdateUserDto)">
+            <summary>
+            Updates an existing user
+            </summary>
+            <param name="id">User ID</param>
+            <param name="updateUserDto">User update data</param>
+            <returns>Updated user</returns>
+            <response code="200">User updated successfully</response>
+            <response code="400">Invalid user data</response>
+            <response code="404">User not found</response>
+            <response code="409">Email already exists</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.UsersController.DeleteUser(System.Int32)">
+            <summary>
+            Deletes a user
+            </summary>
+            <param name="id">User ID</param>
+            <returns>No content if deleted successfully</returns>
+            <response code="204">User deleted successfully</response>
+            <response code="404">User not found</response>
+        </member>
+        <member name="T:AgroScan.API.Services.AuthService">
+            <summary>
+            Service for authentication operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.AuthService.#ctor(AgroScan.Core.Interfaces.IUserRepository,AgroScan.API.Services.IJwtService)">
+            <summary>
+            Initializes a new instance of the AuthService
+            </summary>
+            <param name="userRepository">User repository</param>
+            <param name="jwtService">JWT service</param>
+        </member>
+        <member name="M:AgroScan.API.Services.AuthService.RegisterAsync(AgroScan.Core.DTOs.RegisterDto)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.AuthService.LoginAsync(AgroScan.Core.DTOs.LoginDto)">
+            <inheritdoc />
+        </member>
+        <member name="T:AgroScan.API.Services.IAuthService">
+            <summary>
+            Interface for authentication operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.IAuthService.RegisterAsync(AgroScan.Core.DTOs.RegisterDto)">
+            <summary>
+            Registers a new user
+            </summary>
+            <param name="registerDto">User registration data</param>
+            <returns>Authentication response with token</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IAuthService.LoginAsync(AgroScan.Core.DTOs.LoginDto)">
+            <summary>
+            Logs in a user
+            </summary>
+            <param name="loginDto">User login data</param>
+            <returns>Authentication response with token</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.IInspectionAnalysisService">
+            <summary>
+            Interface for inspection analysis service operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionAnalysisService.GetAnalysesByInspectionIdAsync(System.Int32)">
+            <summary>
+            Gets all analyses for a specific inspection
+            </summary>
+            <param name="inspectionId">Inspection ID</param>
+            <returns>Collection of analyses</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionAnalysisService.GetAnalysisByIdAsync(System.Int32)">
+            <summary>
+            Gets an analysis by ID
+            </summary>
+            <param name="id">Analysis ID</param>
+            <returns>Analysis if found, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionAnalysisService.GetLatestAnalysisByInspectionIdAsync(System.Int32)">
+            <summary>
+            Gets the latest analysis for a specific inspection
+            </summary>
+            <param name="inspectionId">Inspection ID</param>
+            <returns>Latest analysis if found, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionAnalysisService.CreateAnalysisAsync(AgroScan.Core.DTOs.CreateInspectionAnalysisDto,System.Int32,System.Boolean)">
+            <summary>
+            Creates a new inspection analysis
+            </summary>
+            <param name="createAnalysisDto">Analysis creation data</param>
+            <param name="userId">User ID creating the analysis</param>
+            <param name="isAdmin">Whether the user is an admin</param>
+            <returns>Created analysis</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionAnalysisService.UpdateAnalysisAsync(System.Int32,AgroScan.Core.DTOs.CreateInspectionAnalysisDto,System.Int32,System.Boolean)">
+            <summary>
+            Updates an existing inspection analysis
+            </summary>
+            <param name="id">Analysis ID</param>
+            <param name="updateAnalysisDto">Analysis update data</param>
+            <param name="userId">User ID updating the analysis</param>
+            <param name="isAdmin">Whether the user is an admin</param>
+            <returns>Updated analysis if found and authorized, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionAnalysisService.DeleteAnalysisAsync(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Deletes an inspection analysis
+            </summary>
+            <param name="id">Analysis ID</param>
+            <param name="userId">User ID deleting the analysis</param>
+            <param name="isAdmin">Whether the user is an admin</param>
+            <returns>True if deleted and authorized, false otherwise</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.IInspectionImageService">
+            <summary>
+            Interface for inspection image service operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionImageService.GetImagesByInspectionIdAsync(System.Int32)">
+            <summary>
+            Gets all images for a specific inspection
+            </summary>
+            <param name="inspectionId">Inspection ID</param>
+            <returns>Collection of images</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionImageService.GetImageByIdAsync(System.Int32)">
+            <summary>
+            Gets an image by ID
+            </summary>
+            <param name="id">Image ID</param>
+            <returns>Image if found, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionImageService.CreateImageAsync(AgroScan.Core.DTOs.CreateInspectionImageDto,System.Int32,System.Boolean)">
+            <summary>
+            Creates a new inspection image
+            </summary>
+            <param name="createImageDto">Image creation data</param>
+            <param name="userId">User ID creating the image</param>
+            <param name="isAdmin">Whether the user is an admin</param>
+            <returns>Created image</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionImageService.DeleteImageAsync(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Deletes an inspection image
+            </summary>
+            <param name="id">Image ID</param>
+            <param name="userId">User ID deleting the image</param>
+            <param name="isAdmin">Whether the user is an admin</param>
+            <returns>True if deleted and authorized, false otherwise</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.IInspectionService">
+            <summary>
+            Interface for inspection service operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionService.GetUserInspectionsAsync(System.Int32)">
+            <summary>
+            Gets all inspections for a user
+            </summary>
+            <param name="userId">User ID</param>
+            <returns>Collection of inspections</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionService.GetAllInspectionsAsync">
+            <summary>
+            Gets all inspections (Admin only)
+            </summary>
+            <returns>Collection of all inspections</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionService.GetInspectionByIdAsync(System.Int32)">
+            <summary>
+            Gets an inspection by ID
+            </summary>
+            <param name="id">Inspection ID</param>
+            <returns>Inspection if found, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionService.CreateInspectionAsync(AgroScan.Core.DTOs.CreateInspectionDto,System.Int32)">
+            <summary>
+            Creates a new inspection
+            </summary>
+            <param name="createInspectionDto">Inspection creation data</param>
+            <param name="userId">User ID creating the inspection</param>
+            <returns>Created inspection</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionService.UpdateInspectionAsync(System.Int32,AgroScan.Core.DTOs.UpdateInspectionDto,System.Int32,System.Boolean)">
+            <summary>
+            Updates an existing inspection
+            </summary>
+            <param name="id">Inspection ID</param>
+            <param name="updateInspectionDto">Inspection update data</param>
+            <param name="userId">User ID updating the inspection</param>
+            <param name="isAdmin">Whether the user is an admin</param>
+            <returns>Updated inspection if found and authorized, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IInspectionService.DeleteInspectionAsync(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Deletes an inspection
+            </summary>
+            <param name="id">Inspection ID</param>
+            <param name="userId">User ID deleting the inspection</param>
+            <param name="isAdmin">Whether the user is an admin</param>
+            <returns>True if deleted and authorized, false otherwise</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.IJwtService">
+            <summary>
+            Interface for JWT token operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.IJwtService.GenerateToken(AgroScan.Core.Entities.User)">
+            <summary>
+            Generates a JWT token for the specified user
+            </summary>
+            <param name="user">User entity</param>
+            <returns>JWT token string</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IJwtService.ValidateToken(System.String)">
+            <summary>
+            Validates a JWT token and extracts user information
+            </summary>
+            <param name="token">JWT token string</param>
+            <returns>User ID if token is valid, null otherwise</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.InspectionAnalysisService">
+            <summary>
+            Service for inspection analysis operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.#ctor(AgroScan.Core.Interfaces.IInspectionAnalysisRepository,AgroScan.Core.Interfaces.IInspectionRepository)">
+            <summary>
+            Initializes a new instance of the InspectionAnalysisService
+            </summary>
+            <param name="analysisRepository">Analysis repository</param>
+            <param name="inspectionRepository">Inspection repository</param>
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.GetAnalysesByInspectionIdAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.GetAnalysisByIdAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.GetLatestAnalysisByInspectionIdAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.CreateAnalysisAsync(AgroScan.Core.DTOs.CreateInspectionAnalysisDto,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.UpdateAnalysisAsync(System.Int32,AgroScan.Core.DTOs.CreateInspectionAnalysisDto,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.DeleteAnalysisAsync(System.Int32,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionAnalysisService.MapToDto(AgroScan.Core.Entities.InspectionAnalysis)">
+            <summary>
+            Maps InspectionAnalysis entity to InspectionAnalysisDto
+            </summary>
+            <param name="analysis">Analysis entity</param>
+            <returns>InspectionAnalysisDto</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.InspectionImageService">
+            <summary>
+            Service for inspection image operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionImageService.#ctor(AgroScan.Core.Interfaces.IInspectionImageRepository,AgroScan.Core.Interfaces.IInspectionRepository)">
+            <summary>
+            Initializes a new instance of the InspectionImageService
+            </summary>
+            <param name="imageRepository">Image repository</param>
+            <param name="inspectionRepository">Inspection repository</param>
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionImageService.GetImagesByInspectionIdAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionImageService.GetImageByIdAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionImageService.CreateImageAsync(AgroScan.Core.DTOs.CreateInspectionImageDto,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionImageService.DeleteImageAsync(System.Int32,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionImageService.MapToDto(AgroScan.Core.Entities.InspectionImage)">
+            <summary>
+            Maps InspectionImage entity to InspectionImageDto
+            </summary>
+            <param name="image">Image entity</param>
+            <returns>InspectionImageDto</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.InspectionService">
+            <summary>
+            Service for inspection operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.#ctor(AgroScan.Core.Interfaces.IInspectionRepository)">
+            <summary>
+            Initializes a new instance of the InspectionService
+            </summary>
+            <param name="inspectionRepository">Inspection repository</param>
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.GetUserInspectionsAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.GetAllInspectionsAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.GetInspectionByIdAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.CreateInspectionAsync(AgroScan.Core.DTOs.CreateInspectionDto,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.UpdateInspectionAsync(System.Int32,AgroScan.Core.DTOs.UpdateInspectionDto,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.DeleteInspectionAsync(System.Int32,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.InspectionService.MapToDto(AgroScan.Core.Entities.Inspection)">
+            <summary>
+            Maps Inspection entity to InspectionDto
+            </summary>
+            <param name="inspection">Inspection entity</param>
+            <returns>InspectionDto</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.IUserService">
+            <summary>
+            Interface for user service operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.IUserService.GetAllUsersAsync">
+            <summary>
+            Gets all users (Admin only)
+            </summary>
+            <returns>Collection of users</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IUserService.GetUserByIdAsync(System.Int32)">
+            <summary>
+            Gets a user by ID
+            </summary>
+            <param name="id">User ID</param>
+            <returns>User if found, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IUserService.CreateUserAsync(AgroScan.Core.DTOs.CreateUserDto)">
+            <summary>
+            Creates a new user (Admin only)
+            </summary>
+            <param name="createUserDto">User creation data</param>
+            <returns>Created user</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IUserService.UpdateUserAsync(System.Int32,AgroScan.Core.DTOs.UpdateUserDto)">
+            <summary>
+            Updates an existing user
+            </summary>
+            <param name="id">User ID</param>
+            <param name="updateUserDto">User update data</param>
+            <returns>Updated user if found, null otherwise</returns>
+        </member>
+        <member name="M:AgroScan.API.Services.IUserService.DeleteUserAsync(System.Int32)">
+            <summary>
+            Deletes a user
+            </summary>
+            <param name="id">User ID</param>
+            <returns>True if deleted, false if not found</returns>
+        </member>
+        <member name="T:AgroScan.API.Services.JwtService">
+            <summary>
+            Service for JWT token operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.JwtService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the JwtService
+            </summary>
+            <param name="configuration">Application configuration</param>
+        </member>
+        <member name="M:AgroScan.API.Services.JwtService.GenerateToken(AgroScan.Core.Entities.User)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.JwtService.ValidateToken(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:AgroScan.API.Services.UserService">
+            <summary>
+            Service for user operations
+            </summary>
+        </member>
+        <member name="M:AgroScan.API.Services.UserService.#ctor(AgroScan.Core.Interfaces.IUserRepository)">
+            <summary>
+            Initializes a new instance of the UserService
+            </summary>
+            <param name="userRepository">User repository</param>
+        </member>
+        <member name="M:AgroScan.API.Services.UserService.GetAllUsersAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.UserService.GetUserByIdAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.UserService.CreateUserAsync(AgroScan.Core.DTOs.CreateUserDto)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.UserService.UpdateUserAsync(System.Int32,AgroScan.Core.DTOs.UpdateUserDto)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.UserService.DeleteUserAsync(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:AgroScan.API.Services.UserService.MapToDto(AgroScan.Core.Entities.User)">
+            <summary>
+            Maps User entity to UserDto
+            </summary>
+            <param name="user">User entity</param>
+            <returns>UserDto</returns>
+        </member>
+    </members>
+</doc>

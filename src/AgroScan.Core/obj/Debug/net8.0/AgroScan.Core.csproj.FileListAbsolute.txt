@@ -1,0 +1,11 @@
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/bin/Debug/net8.0/AgroScan.Core.deps.json
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/bin/Debug/net8.0/AgroScan.Core.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/bin/Debug/net8.0/AgroScan.Core.pdb
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/AgroScan.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/AgroScan.Core.AssemblyInfoInputs.cache
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/AgroScan.Core.AssemblyInfo.cs
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/AgroScan.Core.csproj.CoreCompileInputs.cache
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/AgroScan.Core.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/refint/AgroScan.Core.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/AgroScan.Core.pdb
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net8.0/ref/AgroScan.Core.dll
