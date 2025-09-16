@@ -55,7 +55,7 @@ public class AuthService : IAuthService
         return new AuthResponseDto
         {
             Token = token,
-            ExpiresAt = DateTime.UtcNow.AddHours(1), // Default 1 hour expiration
+            ExpiresAt = DateTime.UtcNow.AddDays(30),
             User = new UserDto
             {
                 Id = user.Id,
@@ -91,7 +91,7 @@ public class AuthService : IAuthService
         return new AuthResponseDto
         {
             Token = token,
-            ExpiresAt = DateTime.UtcNow.AddHours(1), // Default 1 hour expiration
+            ExpiresAt = DateTime.UtcNow.AddDays(10),
             User = new UserDto
             {
                 Id = user.Id,

@@ -82,33 +82,53 @@ public class InspectionImagesController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new inspection image
+    /// Uploads a new inspection image file
     /// </summary>
-    /// <param name="createImageDto">Image creation data</param>
+    /// <param name="inspectionId">Inspection ID</param>
+    /// <param name="file">Image file</param>
     /// <returns>Created image</returns>
     /// <response code="201">Image created successfully</response>
     /// <response code="400">Invalid image data</response>
     /// <response code="401">Unauthorized - can only add images to own inspections</response>
-    [HttpPost]
+    [HttpPost("upload")]
+    [Consumes("multipart/form-data")]
     [ProducesResponseType(typeof(InspectionImageDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<InspectionImageDto>> CreateImage([FromBody] CreateInspectionImageDto createImageDto)
+    public async Task<ActionResult<InspectionImageDto>> UploadImage([FromForm] int inspectionId, [FromForm] IFormFile file)
     {
         try
         {
-            if (!ModelState.IsValid)
+            if (file == null || file.Length == 0)
             {
-                return BadRequest(ModelState);
+                return BadRequest(new { message = "No file provided" });
             }
 
             var userId = GetCurrentUserId();
             var isAdmin = IsCurrentUserAdmin();
+            
+            // Save file to wwwroot/uploads
+            var uploadsRoot = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+            Directory.CreateDirectory(uploadsRoot);
+            var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+            var filePath = Path.Combine(uploadsRoot, fileName);
+            await using (var stream = System.IO.File.Create(filePath))
+            {
+                await file.CopyToAsync(stream);
+            }
 
-            var image = await _imageService.CreateImageAsync(createImageDto, userId, isAdmin);
+            var imageUrl = $"/uploads/{fileName}";
+
+            var dto = new CreateInspectionImageDto
+            {
+                InspectionId = inspectionId,
+                Image = imageUrl
+            };
+
+            var image = await _imageService.CreateImageAsync(dto, userId, isAdmin);
             
             _logger.LogInformation("Image created successfully: {ImageId} for inspection {InspectionId} by user {UserId}", 
-                image.Id, createImageDto.InspectionId, userId);
+                image.Id, inspectionId, userId);
             return CreatedAtAction(nameof(GetImage), new { id = image.Id }, image);
         }
         catch (UnauthorizedAccessException ex)

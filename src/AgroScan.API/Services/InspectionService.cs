@@ -137,7 +137,8 @@ public class InspectionService : IInspectionService
             Category = inspection.Category,
             UserId = inspection.UserId,
             CreatedAt = inspection.CreatedAt,
-            UpdatedAt = inspection.UpdatedAt
+            UpdatedAt = inspection.UpdatedAt,
+            Images = inspection.InspectionImages?.Select(img => img.Image).ToList() ?? new List<string>()
         };
     }
 }

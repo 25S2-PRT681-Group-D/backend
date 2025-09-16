@@ -147,11 +147,12 @@
             <response code="200">Image retrieved successfully</response>
             <response code="404">Image not found</response>
         </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.CreateImage(AgroScan.Core.DTOs.CreateInspectionImageDto)">
+        <member name="M:AgroScan.API.Controllers.InspectionImagesController.UploadImage(System.Int32,Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
-            Creates a new inspection image
+            Uploads a new inspection image file
             </summary>
-            <param name="createImageDto">Image creation data</param>
+            <param name="inspectionId">Inspection ID</param>
+            <param name="file">Image file</param>
             <returns>Created image</returns>
             <response code="201">Image created successfully</response>
             <response code="400">Invalid image data</response>

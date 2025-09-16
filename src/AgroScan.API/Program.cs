@@ -136,6 +136,9 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
+// Serve static files (for uploaded images)
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

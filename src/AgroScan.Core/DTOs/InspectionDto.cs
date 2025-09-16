@@ -66,6 +66,11 @@ public class InspectionDto
     /// Date when the inspection was last updated
     /// </summary>
     public DateTime UpdatedAt { get; set; }
+
+    /// <summary>
+    /// Image URLs linked to this inspection
+    /// </summary>
+    public List<string> Images { get; set; } = new();
 }
 
 /// <summary>

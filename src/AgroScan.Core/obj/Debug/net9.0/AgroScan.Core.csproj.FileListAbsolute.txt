@@ -9,3 +9,4 @@
 /Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net9.0/refint/AgroScan.Core.dll
 /Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net9.0/AgroScan.Core.pdb
 /Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net9.0/ref/AgroScan.Core.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Core/obj/Debug/net9.0/AgroScan.Core.sourcelink.json

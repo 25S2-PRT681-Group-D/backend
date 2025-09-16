@@ -15,3 +15,4 @@
 /Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net9.0/AgroScan.Infrastructure.pdb
 /Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net9.0/AgroScan.Infrastructure.genruntimeconfig.cache
 /Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net9.0/ref/AgroScan.Infrastructure.dll
+/Users/ritizkarkee/Desktop/backend/src/AgroScan.Infrastructure/obj/Debug/net9.0/AgroScan.Infrastructure.sourcelink.json
