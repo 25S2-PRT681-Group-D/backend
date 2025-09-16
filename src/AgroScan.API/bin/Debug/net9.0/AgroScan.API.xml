@@ -118,74 +118,12 @@
             </summary>
             <returns>True if admin, false otherwise</returns>
         </member>
-        <member name="T:AgroScan.API.Controllers.InspectionImagesController">
-            <summary>
-            Controller for inspection image management operations
-            </summary>
-        </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.#ctor(AgroScan.API.Services.IInspectionImageService,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.InspectionImagesController})">
-            <summary>
-            Initializes a new instance of the InspectionImagesController
-            </summary>
-            <param name="imageService">Image service</param>
-            <param name="logger">Logger</param>
-        </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.GetImagesByInspectionId(System.Int32)">
-            <summary>
-            Gets all images for a specific inspection
-            </summary>
-            <param name="inspectionId">Inspection ID</param>
-            <returns>Collection of images</returns>
-            <response code="200">Images retrieved successfully</response>
-        </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.GetImage(System.Int32)">
-            <summary>
-            Gets an image by ID
-            </summary>
-            <param name="id">Image ID</param>
-            <returns>Image if found</returns>
-            <response code="200">Image retrieved successfully</response>
-            <response code="404">Image not found</response>
-        </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.UploadImage(System.Int32,Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            Uploads a new inspection image file
-            </summary>
-            <param name="inspectionId">Inspection ID</param>
-            <param name="file">Image file</param>
-            <returns>Created image</returns>
-            <response code="201">Image created successfully</response>
-            <response code="400">Invalid image data</response>
-            <response code="401">Unauthorized - can only add images to own inspections</response>
-        </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.DeleteImage(System.Int32)">
-            <summary>
-            Deletes an inspection image
-            </summary>
-            <param name="id">Image ID</param>
-            <returns>No content if deleted successfully</returns>
-            <response code="204">Image deleted successfully</response>
-            <response code="401">Unauthorized - can only delete images from own inspections</response>
-            <response code="404">Image not found</response>
-        </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.GetCurrentUserId">
-            <summary>
-            Gets the current user ID from the JWT token
-            </summary>
-            <returns>User ID</returns>
-        </member>
-        <member name="M:AgroScan.API.Controllers.InspectionImagesController.IsCurrentUserAdmin">
-            <summary>
-            Checks if the current user is an admin
-            </summary>
-            <returns>True if admin, false otherwise</returns>
-        </member>
         <member name="T:AgroScan.API.Controllers.InspectionsController">
             <summary>
             Controller for inspection management operations
             </summary>
         </member>
-        <member name="M:AgroScan.API.Controllers.InspectionsController.#ctor(AgroScan.API.Services.IInspectionService,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.InspectionsController})">
+        <member name="M:AgroScan.API.Controllers.InspectionsController.#ctor(AgroScan.API.Services.IInspectionService,AgroScan.Core.Interfaces.IInspectionImageRepository,Microsoft.Extensions.Logging.ILogger{AgroScan.API.Controllers.InspectionsController})">
             <summary>
             Initializes a new instance of the InspectionsController
             </summary>
@@ -210,10 +148,20 @@
         </member>
         <member name="M:AgroScan.API.Controllers.InspectionsController.CreateInspection(AgroScan.Core.DTOs.CreateInspectionDto)">
             <summary>
-            Creates a new inspection
+            Creates a new inspection from JSON body (no file upload)
             </summary>
-            <param name="createInspectionDto">Inspection creation data</param>
+            <param name="createInspectionDto">Inspection creation data (JSON)</param>
             <returns>Created inspection</returns>
+            <response code="201">Inspection created successfully</response>
+            <response code="400">Invalid inspection data</response>
+        </member>
+        <member name="M:AgroScan.API.Controllers.InspectionsController.CreateInspectionWithImages(AgroScan.Core.DTOs.CreateInspectionDto,System.Collections.Generic.List{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            Creates a new inspection with optional image uploads (multipart/form-data)
+            </summary>
+            <param name="createInspectionDto">Inspection creation data (form fields)</param>
+            <param name="images">Image files to upload</param>
+            <returns>Created inspection with image URLs</returns>
             <response code="201">Inspection created successfully</response>
             <response code="400">Invalid inspection data</response>
         </member>

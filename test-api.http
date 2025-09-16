@@ -1,0 +1,68 @@
+### Test AgroScan API
+
+### 1. Register a new user
+POST http://localhost:5002/api/auth/register
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+### 2. Login with the registered user
+POST http://localhost:5002/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+### 3. Create an inspection (replace {token} with actual JWT token from login response)
+POST http://localhost:5002/api/inspections
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "plantName": "Tomato Plant",
+  "inspectionDate": "2024-12-01T10:00:00Z",
+  "country": "United States",
+  "state": "California",
+  "city": "Los Angeles",
+  "notes": "Healthy plant with some minor leaf spots",
+  "status": 0,
+  "category": 1
+}
+
+### 4. Get user's inspections
+GET http://localhost:5002/api/inspections
+Authorization: Bearer {token}
+
+### 5. Add an image to the inspection (replace {inspectionId} with actual inspection ID)
+POST http://localhost:5002/api/inspectionimages
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "inspectionId": {inspectionId},
+  "image": "https://example.com/plant-image.jpg"
+}
+
+### 6. Create an analysis for the inspection
+POST http://localhost:5002/api/inspectionanalyses
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "inspectionId": {inspectionId},
+  "status": 2,
+  "confidenceScore": 0.85,
+  "description": "Plant shows signs of early blight. Leaf spots are characteristic of fungal infection.",
+  "treatmentRecommendation": "Apply fungicide spray every 7-10 days. Improve air circulation around plants."
+}
+
+### 7. Get latest analysis for inspection
+GET http://localhost:5002/api/inspectionanalyses/inspection/{inspectionId}/latest
+Authorization: Bearer {token}

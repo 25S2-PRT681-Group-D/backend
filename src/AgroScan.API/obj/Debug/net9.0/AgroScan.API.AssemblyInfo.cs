@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AgroScan.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+110f7c734e632bc89a574d48afd53da3bdfbc564")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b423e568edf8dac481230b77c845b85237f4940f")]
 [assembly: System.Reflection.AssemblyProductAttribute("AgroScan.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AgroScan.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

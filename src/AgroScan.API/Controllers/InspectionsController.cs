@@ -4,6 +4,7 @@ using AgroScan.API.Services;
 using AgroScan.Core.DTOs;
 using AgroScan.Core.Enums;
 using System.Security.Claims;
+using AgroScan.Core.Interfaces;
 
 namespace AgroScan.API.Controllers;
 
@@ -17,6 +18,7 @@ namespace AgroScan.API.Controllers;
 public class InspectionsController : ControllerBase
 {
     private readonly IInspectionService _inspectionService;
+    private readonly IInspectionImageRepository _imageRepository;
     private readonly ILogger<InspectionsController> _logger;
 
     /// <summary>
@@ -24,9 +26,10 @@ public class InspectionsController : ControllerBase
     /// </summary>
     /// <param name="inspectionService">Inspection service</param>
     /// <param name="logger">Logger</param>
-    public InspectionsController(IInspectionService inspectionService, ILogger<InspectionsController> logger)
+    public InspectionsController(IInspectionService inspectionService, IInspectionImageRepository imageRepository, ILogger<InspectionsController> logger)
     {
         _inspectionService = inspectionService;
+        _imageRepository = imageRepository;
         _logger = logger;
     }
 
@@ -93,13 +96,15 @@ public class InspectionsController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a new inspection
+    /// Creates a new inspection from JSON body (no file upload)
     /// </summary>
-    /// <param name="createInspectionDto">Inspection creation data</param>
+    /// <param name="createInspectionDto">Inspection creation data (JSON)</param>
     /// <returns>Created inspection</returns>
     /// <response code="201">Inspection created successfully</response>
     /// <response code="400">Invalid inspection data</response>
     [HttpPost]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     [ProducesResponseType(typeof(InspectionDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<InspectionDto>> CreateInspection([FromBody] CreateInspectionDto createInspectionDto)
@@ -113,13 +118,77 @@ public class InspectionsController : ControllerBase
 
             var userId = GetCurrentUserId();
             var inspection = await _inspectionService.CreateInspectionAsync(createInspectionDto, userId);
-            
-            _logger.LogInformation("Inspection created successfully: {InspectionId} by user {UserId}", inspection.Id, userId);
+
+            _logger.LogInformation("Inspection created successfully (JSON): {InspectionId} by user {UserId}", inspection.Id, userId);
             return CreatedAtAction(nameof(GetInspection), new { id = inspection.Id }, inspection);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error creating inspection");
+            return StatusCode(500, new { message = "An error occurred while creating the inspection" });
+        }
+    }
+
+    /// <summary>
+    /// Creates a new inspection with optional image uploads (multipart/form-data)
+    /// </summary>
+    /// <param name="createInspectionDto">Inspection creation data (form fields)</param>
+    /// <param name="images">Image files to upload</param>
+    /// <returns>Created inspection with image URLs</returns>
+    /// <response code="201">Inspection created successfully</response>
+    /// <response code="400">Invalid inspection data</response>
+    [HttpPost("upload")]
+    [Consumes("multipart/form-data")]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(InspectionDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<InspectionDto>> CreateInspectionWithImages([FromForm] CreateInspectionDto createInspectionDto, [FromForm] List<IFormFile>? images)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = GetCurrentUserId();
+            var inspection = await _inspectionService.CreateInspectionAsync(createInspectionDto, userId);
+
+            if (images != null && images.Count > 0)
+            {
+                var uploadsRoot = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                Directory.CreateDirectory(uploadsRoot);
+
+                foreach (var file in images.Where(f => f != null && f.Length > 0))
+                {
+                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                    var filePath = Path.Combine(uploadsRoot, fileName);
+                    await using (var stream = System.IO.File.Create(filePath))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    var imageUrl = $"/uploads/{fileName}";
+
+                    await _imageRepository.AddAsync(new AgroScan.Core.Entities.InspectionImage
+                    {
+                        InspectionId = inspection.Id,
+                        Image = imageUrl,
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow
+                    });
+                }
+                await _imageRepository.SaveChangesAsync();
+            }
+
+            var created = await _inspectionService.GetInspectionByIdAsync(inspection.Id) ?? inspection;
+
+            _logger.LogInformation("Inspection created successfully (FORM): {InspectionId} by user {UserId}", created.Id, userId);
+            return CreatedAtAction(nameof(GetInspection), new { id = created.Id }, created);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating inspection with images");
             return StatusCode(500, new { message = "An error occurred while creating the inspection" });
         }
     }
